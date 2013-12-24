@@ -1,0 +1,5 @@
+My todo list.
+
+Create basic posting model to implement last_insert_id()
+http://dev.mysql.com/doc/refman/5.0/en/getting-unique-id.html
+

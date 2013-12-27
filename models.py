@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Text
+from sqlalchemy import Column, Integer, String, ForeignKey, SmallInteger, Text
 from database import Base
 
 class User(Base):
@@ -21,10 +21,14 @@ class User(Base):
 class State(Base):
     __tablename__ = 'state'
     id = Column(Integer, primary_key=True)
+    abbr = Column(String(2), unique=True)
     name = Column(String(50), unique=True)
+    active = Column(SmallInteger)
     
-    def __init__(self, name=None):
+    def __init__(self, abbr=None, name=None, active=None):
+        self.abbr = abbr
         self.name = name
+        self.active = active
 
     def __repr__(self):
         return '<User %r>' % (self.name)
@@ -34,10 +38,12 @@ class City(Base):
     id = Column(Integer, primary_key=True)
     state_id = Column(Integer, ForeignKey('state.id'))
     name = Column(String(50), unique=True)
+    active = Column(SmallInteger)
     
-    def __init__(self, state_id=None, name=None):
+    def __init__(self, state_id=None, name=None, active=None):
         self.name = name
         self.state_id = state_id
+        self.active = active
 
     def __repr__(self):
         return '<User %r>' % (self.name)

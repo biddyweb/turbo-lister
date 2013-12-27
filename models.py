@@ -37,7 +37,7 @@ class City(Base):
     __tablename__ = 'city'
     id = Column(Integer, primary_key=True)
     state_id = Column(Integer, ForeignKey('state.id'))
-    name = Column(String(50), unique=True)
+    name = Column(String(50))
     active = Column(SmallInteger)
     
     def __init__(self, state_id=None, name=None, active=None):

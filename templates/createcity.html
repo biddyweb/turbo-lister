@@ -3,8 +3,11 @@
 Create City page.
 
   <ul class=entries>
-  {% for entry in entries %}
-    <li><h2>{{ entry.name }}</h2>{{ entry.id }}
+  {% for state in states %}
+    <li><h2>{{ state.name }}</h2>{{ state.id }}
+    {% for city in state.cities %}
+    <h3>{{ city.name }}:{{ city.id }}</h3>
+    {% endfor %}
   {% else %}
     <li><em>Unbelievable.  No entries here so far</em>
   {% endfor %}

@@ -1,7 +1,7 @@
 {% extends "main_header.html" %}
 {% block body %}
 Create City page.
-
+  {{ cached }}
   <ul class=entries>
   {% for state in states %}
     <li><h2>{{ state.name }}</h2>{{ state.id }}

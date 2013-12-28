@@ -1,8 +1,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from config import Config as Config
 
-engine = create_engine('mysql://root:password@localhost/turbo_list', convert_unicode=True)
+engine = create_engine(Config.DBTYPE+'://'+Config.DBUSER+':'+\
+                       Config.DBPASS+'@'+Config.DBSERVER+'/'+Config.DATABASE, convert_unicode=True)
+#engine = create_engine('mysql://root:password@localhost/turbo_list', convert_unicode=True)
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))

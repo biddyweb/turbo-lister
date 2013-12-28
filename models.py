@@ -67,7 +67,9 @@ class JobList(Base):
     state_id = Column(Integer, ForeignKey('state.id'))
     city_id = Column(Integer, ForeignKey('city.id'))
     category_id = Column(Integer, ForeignKey('category.id'))
+    published = Column(SmallInteger)
     title = Column(Text)
+
     
     def __init__(self, poster_id=None, state_id=None, city_id=None, category_id=None, title=None):
         self.poster_id = poster_id

@@ -9,15 +9,89 @@ from models import State, City
 from werkzeug.contrib.cache import SimpleCache
 cache = SimpleCache()
 
+
+
+#Cache Functions
+
+def stateCache():
+    res = db_session.query(State.name, State.abbr, State.id).filter_by(active=1).all();
+    mystates = set()
+    myabbrs = set()
+    mystateIds = dict()
+    for i in res:
+        mystates.add(i[0])
+        myabbrs.add(i[1])
+        mystateIds[i[1]] = i[2]
+    cache.set('states', mystates, timeout=5*60)
+    cache.set('abbrs', myabbrs, timeout=6*60)
+    cache.set('state-ids', mystateIds, 6*60)
+    
+    return (mystates, myabbrs, mystateIds)
+
+def cityCache(abbr, stateId):
+    res = db_session.query(City.name, City.id).filter_by(active=1, state_id=stateId).all();
+    mycityIds = dict()
+    for i in res:
+        mycityIds[abbr+'_'+i[0]] = i[1]
+    cache.set(abbr+'-cities', mycityIds, timeout=5 * 60)
+    return mycityIds
+
 def user(username):
     return "user view"
 
-def createcity():
-    res = db_session.query(State).filter_by(active=1).all()
-    states = [dict(name=row.name, id=row.id, active=row.active, cities=\
+def createcity_cache():
+    mypage = cache.get('city-page')
+    if mypage is None:
+            rv = cache.get('my-item')
+            if rv is None:
+                res = db_session.query(State).filter_by(active=1).all()
+                states = [dict(name=row.name, id=row.id, active=row.active, cities=\
                    [dict(name=c.name, id=c.id) for c in db_session.query(City).filter_by(active=1).filter_by(state_id=row.id).all()])\
                for row in res]
-    return render_template('createcity.html', states=states)
+                rv = states
+                cache.set('my-item', rv, timeout=5 * 60)
+            states = rv
+            mypage = render_template('createcity.html', states=states)
+            cache.set('city-page', mypage, timeout=5 * 60)
+    return mypage
+
+def createcity():
+    return createcity_cache()
 
 def index():
     return render_template('index.html')
+
+def newjob(abbr, city):
+    #Check to see if user is logged in here
+    if 1 == 1:
+        loggedin = 1
+    else:
+        return render_template('login_redirect.html'), 404
+    mystates = cache.get('states')
+    myabbrs = cache.get('abbrs')
+    mystateIds = cache.get('state-ids')
+    if mystates is None:
+        mycached = stateCache()
+        mystates = mycached[0]
+        myabbrs = mycached[1]
+        mystateIds = mycached[2]
+        
+    #State checks out, lets see if city is valid
+    if abbr in myabbrs:
+        stateId = mystateIds[abbr]
+        mycities = cache.get(abbr+'-cities')
+        message = "huh"
+        if mycities is None:
+            mycities = cityCache(abbr,stateId)
+            message = "not cached"
+        if abbr+'_'+city in mycities:
+            mycityID = mycities[abbr+'_'+city]
+            message = "valid city"
+        else: #Invalid city
+            return render_template('404.html'), 404
+    else: #Invalid state
+        return render_template('404.html'), 404
+    
+    #Everything checks out, let's return the page
+    return message
+    #return 'new job page'

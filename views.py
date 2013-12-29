@@ -15,11 +15,11 @@ cache = SimpleCache()
 
 def stateCache():
     res = db_session.query(State.name, State.abbr, State.id).filter_by(active=1).all();
-    mystates = set()
+    mystates = dict()
     myabbrs = set()
     mystateIds = dict()
     for i in res:
-        mystates.add(i[0])
+        mystates[i[2]] = i[0]
         myabbrs.add(i[1])
         mystateIds[i[1]] = i[2]
     cache.set('states', mystates, timeout=5*60)
@@ -32,7 +32,7 @@ def cityCache(abbr, stateId):
     res = db_session.query(City.name, City.id).filter_by(active=1, state_id=stateId).all();
     mycityIds = dict()
     for i in res:
-        mycityIds[abbr+'_'+i[0]] = i[1]
+        mycityIds[i[0]] = i[1]
     cache.set(abbr+'-cities', mycityIds, timeout=5 * 60)
     return mycityIds
 
@@ -59,7 +59,31 @@ def createcity():
     return createcity_cache()
 
 def index():
-    return render_template('index.html')
+    mystates = cache.get('states')
+    myabbrs = cache.get('abbrs')
+    mystateIds = cache.get('state-ids')
+    if mystates is None:
+        mycached = stateCache()
+        mystates = mycached[0]
+        myabbrs = mycached[1]
+        mystateIds = mycached[2]
+    states = list() 
+    for abbr in myabbrs:
+        myid = mystateIds[abbr]
+        myname = mystates[myid]
+        mystate = dict()
+        mystate['name'] = myname
+        mystate['abbr'] = abbr
+        mystate['id'] = myid
+        mystate['cities'] = dict()
+        mycities = cache.get(abbr+'-cities')
+        if mycities is None:
+            mycities = cityCache(abbr,myid)
+        for k,v in mycities.iteritems():
+            mystate['cities'][k] = v
+        states.append(mystate)
+    
+    return render_template('index.html', states=states)
 
 def newjob(abbr, city):
     #Check to see if user is logged in here
@@ -84,8 +108,8 @@ def newjob(abbr, city):
         if mycities is None:
             mycities = cityCache(abbr,stateId)
             message = "not cached"
-        if abbr+'_'+city in mycities:
-            mycityID = mycities[abbr+'_'+city]
+        if city in mycities:
+            mycityID = mycities[city]
             message = "valid city"
         else: #Invalid city
             return render_template('404.html'), 404
@@ -95,3 +119,23 @@ def newjob(abbr, city):
     #Everything checks out, let's return the page
     return message
     #return 'new job page'
+    
+def jobsbystate(abbr):
+    
+    return 'hello'
+
+def jobsbycity(abbr, city):
+    
+    return 'hello'
+
+def alljobscitystate(abbr, city):
+    
+    return 'hello'
+
+def jobscitystatecat(abbr, city, cat):
+    
+    return 'hello'
+
+def joblisting(abbr, city, cat, jid):
+    
+    return 'hello'

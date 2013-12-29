@@ -2,4 +2,14 @@
 {% block body %}
 Index of application page.
 
+
+  {% for state in states %}
+    <li><h2><a href="{{ url_for('jobsbystate', abbr=state.abbr) }}">{{ state.name }}</a></h2>{{ state.id }}
+    {% for k, v in state.cities.iteritems() %}
+    <h3>{{ k }}:{{ v }}</h3>
+    {% endfor %}
+  {% else %}
+    <li><em>Unbelievable.  No entries here so far</em>
+  {% endfor %}
+
 {% endblock %}

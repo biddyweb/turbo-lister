@@ -1,0 +1,7 @@
+State Caches
+states:  dict(id = name)
+abbrs: set of state abbreviations.
+state-ids: dict(abbr = id)
+
+City Caches
+VA-cities: dict(name = id)

@@ -20,7 +20,7 @@ from database import init_db
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     db_session.remove()
-    
+    #test
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404

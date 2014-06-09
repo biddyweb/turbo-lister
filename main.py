@@ -3,7 +3,10 @@ from models import State, City
 import views
 
 app = Flask(__name__)
-app.add_url_rule('/', view_func=views.index)
+app.config.from_object('config.Config')
+
+
+#app.add_url_rule('/', view_func=views.index)
 app.add_url_rule('/user/<username>', view_func=views.user)
 app.add_url_rule('/new/<abbr>/<city>', view_func=views.newjob)
 app.add_url_rule('/createcity', view_func=views.createcity)
@@ -12,9 +15,18 @@ app.add_url_rule('/jobs/<abbr>/<city>', view_func=views.jobsbycity)
 app.add_url_rule('/jobs/<abbr>/<city>/alljobs', view_func=views.alljobscitystate)
 app.add_url_rule('/jobs/<abbr>/<city>/<cat>', view_func=views.jobscitystatecat)
 app.add_url_rule('/jobs/<abbr>/<city>/<cat>/<jid>', view_func=views.joblisting)
+
+from view_types.IndexView import IndexView
+indexview = IndexView.as_view('index')
+app.add_url_rule('/', view_func=indexview, methods=['GET','POST'])
+
+from view_types.StateHomeView import StateHomeView
+statehomeview = StateHomeView.as_view('statehome')
+app.add_url_rule('/<abbr>', view_func=statehomeview, methods=['GET', 'POST'])
+
 from database import db_session
 from database import init_db
-
+ 
 #init_db()
 
 @app.teardown_appcontext

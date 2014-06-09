@@ -1,0 +1,12 @@
+{% extends "main_header.html" %}
+{% block body %}
+Index of state's home page.
+<h2>{{ state.abbr }}</h2>
+<br />
+{% for id, city in state.citydict.iteritems() %}
+<h3>{{ id }}: {{city}}</h3>
+{% endfor %}
+<br />
+<br />
+
+{% endblock %}

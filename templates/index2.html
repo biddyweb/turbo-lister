@@ -6,7 +6,7 @@ Index of application page.
 {{ states }}
 <br />
 <br />
-  {% for state, attrs in states.iteritems() %}
+  {% for state, attrs in states.states.iteritems() %}
     <li><h2><a href="{{ url_for('jobsbystate', abbr=attrs.abbr) }}">{{ attrs.name }}</a></h2>ID: {{ state }}
 	{% for id, name in attrs.cities.iteritems() %}
 	<h3>{{ name }} </h3>

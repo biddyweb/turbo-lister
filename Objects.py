@@ -5,6 +5,7 @@ from werkzeug.contrib.cache import MemcachedCache
 cache = MemcachedCache(['127.0.0.1:11211'])
 
 class States():
+    id = None
     states = None
     abbrs = None
     ids = None
@@ -31,7 +32,7 @@ class StateHomePage():
 class AllStatesIndex():
     #dict of ids
     #( id : (name : x, abbr : x, cities : (id : x, name : x) )
-    states = dict()
+    states = list()
     def __init__(self):
         self.states = getAllStates()
         

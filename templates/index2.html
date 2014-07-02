@@ -3,12 +3,13 @@
 Index of application page.
 
 <br />
-{{ states }}
+{{ allstates }}
 <br />
 <br />
-  {% for state, attrs in states.states.iteritems() %}
-    <li><h2><a href="{{ url_for('jobsbystate', abbr=attrs.abbr) }}">{{ attrs.name }}</a></h2>ID: {{ state }}
-	{% for id, name in attrs.cities.iteritems() %}
+  {% for state in allstates %}
+    <li><h2><a href="{{ url_for('jobsbystate', abbr=state.abbr) }}">{{ state.name }}</a></h2>ID: {{ state.id }}
+    <br>
+	{% for id, name in state.cities.iteritems() %}
 	<h3>{{ name }} </h3>
 	{% endfor %}
 

@@ -1,3 +1,4 @@
 eclipse.preferences.version=1
 encoding//jinja2/utils.py=utf-8
+encoding//werkzeug/contrib/cache.py=utf-8
 encoding/itsdangerous.py=utf-8

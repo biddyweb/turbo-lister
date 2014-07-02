@@ -19,5 +19,8 @@ class IndexView(MethodView):
         
         #else, we need to render our user's screen.
         states = Objects.AllStatesIndex()
-        return render_template('index2.html', states=states)
+        states = sorted(states.states, key=lambda k: k.id)
+        
+        
+        return render_template('index2.html', allstates=states)
         #return render_template('index.html', states=states)

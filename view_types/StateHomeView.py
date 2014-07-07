@@ -4,7 +4,7 @@ from flask.views import MethodView
 from database import db_session
 from models import State, City
 
-from Objects import getStateIdByAbbr, getStateCities, StateHomePage
+from Objects import getStateIdByAbbr, getStateCities, getStateDetailsByAbbr
 import Objects
 
 
@@ -20,6 +20,6 @@ class StateHomeView(MethodView):
         #else, we need to render our user's screen.
         
         abbr = abbr.upper()
-        myState = Objects.StateHomePage(abbr)           
+        myState = getStateDetailsByAbbr(abbr)         
         flash(myState.name)
         return render_template('state_home.html', state=myState)

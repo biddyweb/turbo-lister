@@ -24,6 +24,8 @@ class CityHomeView(MethodView):
         myCity = getCityDetails(abbr, city)
         if myCity is None:
             abort(500, 'bad city provided')
-        myState = getStateDetails(myCity.stateid)  
+        myState = getStateDetails(myCity.stateid)
+        if myState is None:
+            abort(500, 'no state found' + str(myCity.stateid))
         flash(myCity.name)
         return render_template('city_home.html', city=myCity, state=myState, headergen=headergen, footergen=footergen)

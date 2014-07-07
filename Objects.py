@@ -72,9 +72,16 @@ def getStateNameById(stateid):
     return cache.get('states:' + str(stateid) + ':name')
 
 def getStateDetails(stateid):
+    testCache()
     return cache.get('states:' + str(stateid) + ':details')
 
+def getStateDetailsByAbbr(abbr):
+    testCache()
+    stateid = getStateIdByAbbr(abbr)
+    return getStateDetails(stateid)
+
 def getCityDetails(abbr, name):
+    testCache()
     return cache.get('city:' + abbr + ':' + name + ':details')
 
 def getStateCities(stateid):

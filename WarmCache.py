@@ -17,9 +17,6 @@ def stateCache():
         myids.add(i[2])
     cache.set('states:ids', myids, 0)
 
-    
-    
-
 def cityCache(stateId):
     res = db_session.query(City.name, City.id).filter_by(active=1, state_id=stateId).all();
     mycityIds = set()
@@ -28,29 +25,7 @@ def cityCache(stateId):
         mycityIds.add(i[1])
     cache.set('states:' + str(stateId) + ':cities', mycityIds, 0)
     
-    
 def allStatesIndex():
-    #( id : (name : x, abbr : x, cities : (id : x, name : x) )
-    allstates = list()
-    states = cache.get('states:ids')
-    for id in states:
-        statedetails = Objects.State()
-        statedetails['id'] = id
-        statedetails['name'] = cache.get('states:' + str(id) + ':name')
-        statedetails['abbr'] = cache.get('states:' + str(id) + ':abbr')
-        statecities = cache.get('states:' + str(id) + ':cities')
-        
-        cities = dict()
-        for cityid in statecities:
-            cities[cityid] = cache.get('city:' + str(cityid) + ':name')
-            
-        statedetails['cities'] = cities
-        #allstates[id] = statedetails
-        allstates.append(statedetails)
-        cache.set('states:' + str(id) + ':details', statedetails, )
-    cache.set('allstates', allstates, )
-    
-def allStatesIndex2():
     allstates = list()
     cachedstates = cache.get('states:ids')
     for id in cachedstates:
@@ -70,6 +45,7 @@ def allStatesIndex2():
             citydetails.name = statedetails.cities[cityid]
             cache.set('city:' + statedetails.abbr + ':' + statedetails.cities[cityid] + ':details', citydetails, )
         allstates.append(statedetails)
+        cache.set('states:' + str(id) + ':details', statedetails, )
     cache.set('allstates', allstates, 0)
 
 def loadCache():
@@ -78,7 +54,7 @@ def loadCache():
     mystateIds = cache.get('states:ids')
     for id in mystateIds:
         cityCache(id)
-    allStatesIndex2()
+    allStatesIndex()
 
 loadCache()
 cache.set('iswarm', 1, timeout=0)

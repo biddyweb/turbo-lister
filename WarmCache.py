@@ -34,7 +34,7 @@ def allStatesIndex():
     allstates = list()
     states = cache.get('states:ids')
     for id in states:
-        statedetails = dict()
+        statedetails = Objects.State()
         statedetails['id'] = id
         statedetails['name'] = cache.get('states:' + str(id) + ':name')
         statedetails['abbr'] = cache.get('states:' + str(id) + ':abbr')
@@ -47,21 +47,28 @@ def allStatesIndex():
         statedetails['cities'] = cities
         #allstates[id] = statedetails
         allstates.append(statedetails)
+        cache.set('states:' + str(id) + ':details', statedetails, )
     cache.set('allstates', allstates, )
     
 def allStatesIndex2():
     allstates = list()
     cachedstates = cache.get('states:ids')
     for id in cachedstates:
-        statedetails = Objects.States()
+        statedetails = Objects.State()
         statedetails.id = id
         statedetails.test = 'hello'
         statedetails.name = cache.get('states:' + str(id) + ':name')
         statedetails.abbr = cache.get('states:' + str(id) + ':abbr')
         statedetails.cityids = cache.get('states:' + str(id) + ':cities')
         statedetails.cities = dict()
-        for cityid in statedetails.cityids:
+        for cityid in statedetails.cityids:           
             statedetails.cities[cityid] = cache.get('city:' + str(cityid) + ':name')
+            
+            citydetails = Objects.City()
+            citydetails.id = cityid
+            citydetails.stateid = statedetails.id
+            citydetails.name = statedetails.cities[cityid]
+            cache.set('city:' + statedetails.abbr + ':' + statedetails.cities[cityid] + ':details', citydetails, )
         allstates.append(statedetails)
     cache.set('allstates', allstates, 0)
 

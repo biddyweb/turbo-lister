@@ -4,16 +4,35 @@ from werkzeug.contrib.cache import MemcachedCache
 # http://stackoverflow.com/questions/10016499/nginx-with-flask-and-memcached-returns-some-garbled-characters
 cache = MemcachedCache(['127.0.0.1:11211'])
 
-class States():
+class State():
     id = None
-    states = None
-    abbrs = None
-    ids = None
+    name = None
+    abbr = None
     cityids = None
     cities = dict()
-
+    
+class City():
+    id = None
+    stateid = None
+    name = None
         
 class StateHomePage():
+    name = None
+    abbr = None
+    id = None
+    cityids = set()
+    citydict = dict()
+    def __init__(self, abbr):  
+        testCache()      
+        self.abbr = abbr
+        self.id = getStateIdByAbbr(self.abbr)
+        if self.id is None:
+            abort(404, "Invalid State Selection")
+        self.name = getStateNameById(self.id)
+        self.cityids = getStateCities(self.id)
+        self.citydict = getCityDict(self.cityids)
+        
+class CityHomePage():
     name = None
     abbr = None
     id = None
@@ -52,6 +71,12 @@ def getStateIdByAbbr(abbr):
 def getStateNameById(stateid):
     return cache.get('states:' + str(stateid) + ':name')
 
+def getStateDetails(stateid):
+    return cache.get('states:' + str(stateid) + ':details')
+
+def getCityDetails(abbr, name):
+    return cache.get('city:' + abbr + ':' + name + ':details')
+
 def getStateCities(stateid):
     return cache.get('states:' + str(stateid) + ':cities')
 
@@ -60,3 +85,6 @@ def getCityDict(cityids):
     for id in cityids:
         myresults[id] = cache.get('city:' + str(id) + ':name')
     return myresults
+
+def getCityIdByName(stateid, name):
+    return cache.get(stateid + ':' + name)

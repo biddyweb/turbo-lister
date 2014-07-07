@@ -1,0 +1,22 @@
+<html>
+<head>
+<title>Turbo-Lister</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class=page>
+  <h1>Flaskr</h1>
+  <div class=metanav>
+
+    <a href="{{ url_for('index') }}">Index</a>
+
+    <a href="{{ url_for('createcity') }}">log out</a>
+<br />
+{% autoescape false %}
+    {{ test }}
+{% endautoescape %}
+<br />
+  </div>
+  {% for message in get_flashed_messages() %}
+    <div class=flash>{{ message }}</div>
+  {% endfor %}

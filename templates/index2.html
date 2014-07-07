@@ -2,9 +2,7 @@
 {% block body %}
 Index of application page.
 
-<br />
-{{ allstates }}
-<br />
+
 <br />
   {% for state in allstates %}
     <li><h2><a href="{{ url_for('jobsbystate', abbr=state.abbr) }}">{{ state.name }}</a></h2>ID: {{ state.id }}

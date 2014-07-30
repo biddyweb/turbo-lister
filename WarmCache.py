@@ -1,5 +1,5 @@
 from database import db_session
-from models import State, City
+from models import State, City, Category
 
 from werkzeug.contrib.cache import MemcachedCache
 #Should rename objects to something less generic.
@@ -47,7 +47,13 @@ def allStatesIndex():
         allstates.append(statedetails)
         cache.set('states:' + str(id) + ':details', statedetails, )
     cache.set('allstates', allstates, 0)
-
+def allCategories():
+    res = db_session.query(Category).all();
+    allcats = list()
+    for cat in res:
+        mycat = Objects.Cat(cat.id, cat.name)
+        allcats.append(mycat)
+    cache.set('allcats', allcats, )
 def loadCache():
     #Warm up our cache.
     stateCache()
@@ -55,6 +61,7 @@ def loadCache():
     for id in mystateIds:
         cityCache(id)
     allStatesIndex()
+    allCategories()
 
 loadCache()
 cache.set('iswarm', 1, timeout=0)

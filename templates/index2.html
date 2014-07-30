@@ -2,31 +2,14 @@
 {% block body %}
 <div id="main">
 			<div class="container">
+			
 				<div class="row main-row">
+				
 					<div class="4u">
 
-						<section>
-							<h2>My Account</h2>
-							<div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="true" data-auto-logout-link="true" onlogin="checkLoginState();"></div>
-							<ul class="small-image-list">
-								<li>
-									<a href="#"><img src="images/pic1.jpg" alt="" class="left" /></a>
-									<h4>Post a Job</h4>
-									<p>Create a free job listing!</p>
-								</li>
-								<li>
-									<a href="#"><img src="images/pic2.jpg" alt="" class="left" /></a>
-									<h4>Account Settings</h4>
-									<p>Edity your account settings.</p>
-								</li>
-								<li>
-									<a href="#"><img src="images/pic1.jpg" alt="" class="left" /></a>
-									<h4>My Activity</h4>
-									<p>My Messages</p>
-									<p>View recent posts.</p>
-								</li>
-							</ul>
-						</section>
+						{% autoescape false %}
+    					{{ myaccountgen }}
+						{% endautoescape %}
 					
 						<section>
 							<h2>Browse all jobs by category</h2>
@@ -34,66 +17,71 @@
 								<div class="row">
 									<div class="6u">
 										<ul class="link-list">
-											<li><a href="#">Sed neque nisi consequat</a></li>
-											<li><a href="#">Dapibus sed mattis blandit</a></li>
-											<li><a href="#">Quis accumsan lorem</a></li>
-											<li><a href="#">Suspendisse varius ipsum</a></li>
-											<li><a href="#">Eget et amet consequat</a></li>
+											{% for cat in allcats %}
+											<li><a href="/{{ cat.urlname }}">{{ cat.name }}</a></li>
+											{% endfor %}
 										</ul>
 									</div>
 									<div class="6u">
 										<ul class="link-list">
-											<li><a href="#">Quis accumsan lorem</a></li>
-											<li><a href="#">Sed neque nisi consequat</a></li>
-											<li><a href="#">Eget et amet consequat</a></li>
-											<li><a href="#">Dapibus sed mattis blandit</a></li>
-											<li><a href="#">Vitae magna sed dolore</a></li>
+											{% for cat in allcats %}
+											<li><a href="/{{ cat.urlname }}">{{ cat.name }}</a></li>
+											{% endfor %}
 										</ul>
 									</div>
 								</div>
 							</div>
 						</section>
-						
+						<section>
+						<h2>Find Jobs by city / state</h2>
+							<div>
+							{% for state in allstates %}
+							<h4><a href="{{ url_for('jobsbystate', abbr=state.abbr) }}">{{ state.name }}</a></h3>
+
+										<ul class="sidebar">
+										{% for id, name in state.cities.iteritems() %}
+										<li><a href="#">{{ name }} </a></li>
+										{% endfor %}
+										</ul>
+
+							
+				  					{% else %}
+				    				<em>Unbelievable.  No entries here so far</em>
+				 				{% endfor %}
+				 			</div>
+				 			<div class="row">
+				 			</div>
+						</section>
+						<section>
+				    <h1>Flaskr</h1>
+				  <div class=metanav>
+				
+				    <a href="{{ url_for('index') }}">Index2</a>
+				
+				    <a href="{{ url_for('createcity') }}">log out</a>
+				<br />
+				{% autoescape false %}
+				    {{ test }}
+				{% endautoescape %}
+				<br />
+				  </div>
+				  {% for message in get_flashed_messages() %}
+				    <div class=flash>{{ message }}</div>
+				  {% endfor %}
+				  Index of application page.
+				
+				{{ li }}
+				<br />
+				{{ fb }}
+				
+				
+				<br />
+						</section>
 					</div>
 					<div class="8u skel-cell-important">
 
 						<section class="right-content">
-							<h2>Find Jobs by city / state</h2>
-							<p>  {% for state in allstates %}
-    <h3><a href="{{ url_for('jobsbystate', abbr=state.abbr) }}">{{ state.name }}</a></h3>ID: {{ state.id }}
-										<ul>
-	{% for id, name in state.cities.iteritems() %}
-
-		<li><a href="#">{{ name }} </a></li>
-	
-	{% endfor %}
-		</ul>
-  {% else %}
-    <em>Unbelievable.  No entries here so far</em>
-  {% endfor %}</p>
-    <h1>Flaskr</h1>
-  <div class=metanav>
-
-    <a href="{{ url_for('index') }}">Index2</a>
-
-    <a href="{{ url_for('createcity') }}">log out</a>
-<br />
-{% autoescape false %}
-    {{ test }}
-{% endautoescape %}
-<br />
-  </div>
-  {% for message in get_flashed_messages() %}
-    <div class=flash>{{ message }}</div>
-  {% endfor %}
-  Index of application page.
-
-{{ li }}
-<br />
-{{ fb }}
-
-
-<br />
+							
 						</section>
 					
 					</div>

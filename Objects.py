@@ -15,6 +15,15 @@ class City():
     id = None
     stateid = None
     name = None
+    
+class Cat():
+    id = None
+    name = None
+    urlname = None
+    def __init__(self, id, name):
+        self.id = id
+        self.name = name
+        self.urlname = name.replace(" ", "_").lower()
         
 class StateHomePage():
     name = None
@@ -54,6 +63,11 @@ class AllStatesIndex():
     states = list()
     def __init__(self):
         self.states = getAllStates()
+
+class AllCats():
+    cats = list()
+    def __init__(self):
+        self.cats = getAllCats()
         
 def testCache():
     if cache.get('iswarm') is None:
@@ -64,6 +78,10 @@ def getAllStates():
     #allstates = dict ( state_id : (name : x, abbr : x, cities : (city_id : x, name : x) ) )
     testCache()
     return cache.get('allstates')
+
+def getAllCats():
+    testCache()
+    return cache.get('allcats')
 
 def getStateIdByAbbr(abbr):
     return cache.get('abbr:' + abbr)

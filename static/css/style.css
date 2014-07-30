@@ -87,7 +87,15 @@
 	* > p:last-child {
 		margin-bottom: 0 !important;
 	}
-
+	.sidebar li {
+		padding-left: 25px;
+	}
+	.sidebar {
+		padding-bottom: 15px;
+	}
+	.row {
+		padding-bottom: 25px;
+	}
 /* Reusable */
 
 	article.blog-post {

@@ -28,6 +28,14 @@ from view_types.CityHomeView import CityHomeView
 cityhomeview = CityHomeView.as_view('cityhome')
 app.add_url_rule('/<abbr>/<city>', view_func=cityhomeview, methods=['GET', 'POST'])
 
+from view_types.CatAllJobsView import CatAllJobsView
+catalljobsview = CatAllJobsView.as_view('catalljobsview')
+app.add_url_rule('/alljobs/<cat>', view_func=catalljobsview, methods=['GET', 'POST'])
+
+from view_types.SignInView import SignInView
+signinview = SignInView.as_view('signinview')
+app.add_url_rule('/signin', view_func=signinview, methods=['GET', 'POST'])
+
 from database import db_session
 from database import init_db
  

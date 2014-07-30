@@ -54,6 +54,9 @@ def allCategories():
         mycat = Objects.Cat(cat.id, cat.name)
         allcats.append(mycat)
     cache.set('allcats', allcats, )
+    
+
+    
 def loadCache():
     #Warm up our cache.
     stateCache()
@@ -63,5 +66,7 @@ def loadCache():
     allStatesIndex()
     allCategories()
 
+
 loadCache()
 cache.set('iswarm', 1, timeout=0)
+

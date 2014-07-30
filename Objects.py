@@ -1,4 +1,4 @@
-from flask import abort
+from flask import abort, render_template
 from werkzeug.contrib.cache import MemcachedCache
 
 # http://stackoverflow.com/questions/10016499/nginx-with-flask-and-memcached-returns-some-garbled-characters
@@ -56,7 +56,16 @@ class CityHomePage():
         self.name = getStateNameById(self.id)
         self.cityids = getStateCities(self.id)
         self.citydict = getCityDict(self.cityids)
-        
+
+class HTMLSnippet():
+    html = None
+    def __init__(self, snippet):
+        testCache()
+        self.html = getHTMLByName(snippet)
+        if self.html is None:
+            self.html = render_template(snippet + '_gen.html')
+            cache.set('html:' + snippet, self.html)
+         
 class AllStatesIndex():
     #dict of ids
     #( id : (name : x, abbr : x, cities : (id : x, name : x) )
@@ -82,6 +91,9 @@ def getAllStates():
 def getAllCats():
     testCache()
     return cache.get('allcats')
+
+def getHTMLByName(snippet):
+    return cache.get('html:' + snippet)
 
 def getStateIdByAbbr(abbr):
     return cache.get('abbr:' + abbr)

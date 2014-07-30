@@ -36,6 +36,7 @@ class IndexView(MethodView):
         #we need to get the generated header.
         #this should be in cache, but for now it's not.
         headergen = render_template('header_gen.html')
+        footergen = render_template('footer_gen.html')
         
-        return render_template('index2.html', allstates=states, li=logged_in, fb=fb_in, headergen=headergen)
+        return render_template('index2.html', allstates=states, li=logged_in, fb=fb_in, headergen=headergen, footergen=footergen)
         #return render_template('index.html', states=states)

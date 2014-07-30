@@ -1,6 +1,92 @@
 {% extends "main_header.html" %}
 {% block body %}
-Index of application page.
+<div id="main">
+			<div class="container">
+				<div class="row main-row">
+					<div class="4u">
+
+						<section>
+							<h2>My Account</h2>
+							<div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="true" data-auto-logout-link="true" onlogin="checkLoginState();"></div>
+							<ul class="small-image-list">
+								<li>
+									<a href="#"><img src="images/pic1.jpg" alt="" class="left" /></a>
+									<h4>Post a Job</h4>
+									<p>Create a free job listing!</p>
+								</li>
+								<li>
+									<a href="#"><img src="images/pic2.jpg" alt="" class="left" /></a>
+									<h4>Account Settings</h4>
+									<p>Edity your account settings.</p>
+								</li>
+								<li>
+									<a href="#"><img src="images/pic1.jpg" alt="" class="left" /></a>
+									<h4>My Activity</h4>
+									<p>My Messages</p>
+									<p>View recent posts.</p>
+								</li>
+							</ul>
+						</section>
+					
+						<section>
+							<h2>Browse all jobs by category</h2>
+							<div>
+								<div class="row">
+									<div class="6u">
+										<ul class="link-list">
+											<li><a href="#">Sed neque nisi consequat</a></li>
+											<li><a href="#">Dapibus sed mattis blandit</a></li>
+											<li><a href="#">Quis accumsan lorem</a></li>
+											<li><a href="#">Suspendisse varius ipsum</a></li>
+											<li><a href="#">Eget et amet consequat</a></li>
+										</ul>
+									</div>
+									<div class="6u">
+										<ul class="link-list">
+											<li><a href="#">Quis accumsan lorem</a></li>
+											<li><a href="#">Sed neque nisi consequat</a></li>
+											<li><a href="#">Eget et amet consequat</a></li>
+											<li><a href="#">Dapibus sed mattis blandit</a></li>
+											<li><a href="#">Vitae magna sed dolore</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</section>
+						
+					</div>
+					<div class="8u skel-cell-important">
+
+						<section class="right-content">
+							<h2>Find Jobs by city / state</h2>
+							<p>  {% for state in allstates %}
+    <h3><a href="{{ url_for('jobsbystate', abbr=state.abbr) }}">{{ state.name }}</a></h3>ID: {{ state.id }}
+										<ul>
+	{% for id, name in state.cities.iteritems() %}
+
+		<li><a href="#">{{ name }} </a></li>
+	
+	{% endfor %}
+		</ul>
+  {% else %}
+    <em>Unbelievable.  No entries here so far</em>
+  {% endfor %}</p>
+    <h1>Flaskr</h1>
+  <div class=metanav>
+
+    <a href="{{ url_for('index') }}">Index2</a>
+
+    <a href="{{ url_for('createcity') }}">log out</a>
+<br />
+{% autoescape false %}
+    {{ test }}
+{% endautoescape %}
+<br />
+  </div>
+  {% for message in get_flashed_messages() %}
+    <div class=flash>{{ message }}</div>
+  {% endfor %}
+  Index of application page.
 
 {{ li }}
 <br />
@@ -8,114 +94,14 @@ Index of application page.
 
 
 <br />
-  {% for state in allstates %}
-    <li><h2><a href="{{ url_for('jobsbystate', abbr=state.abbr) }}">{{ state.name }}</a></h2>ID: {{ state.id }}
-    <br>
-	{% for id, name in state.cities.iteritems() %}
-	<h3>{{ name }} </h3>
-	{% endfor %}
-
-  {% else %}
-    <li><em>Unbelievable.  No entries here so far</em>
-  {% endfor %}
+						</section>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		
 
 
-<script>
-  // This is called with the results from from FB.getLoginStatus().
-  function statusChangeCallback(response) {
-    console.log('statusChangeCallback');
-    console.log(response);
-    // The response object is returned with a status field that lets the
-    // app know the current login status of the person.
-    // Full docs on the response object can be found in the documentation
-    // for FB.getLoginStatus().
-    if (response.status === 'connected') {
-      // Logged into your app and Facebook.
-      testAPI();
-    } else if (response.status === 'not_authorized') {
-      // The person is logged into Facebook, but not your app.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this app.';
-    } else {
-      // The person is not logged into Facebook, so we're not sure if
-      // they are logged into this app or not.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into Facebook.';
-    }
-  }
-
-  // This function is called when someone finishes with the Login
-  // Button.  See the onlogin handler attached to it in the sample
-  // code below.
-  function checkLoginState() {
-   window.location='/jobs/MD';
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-      
-    });
-  }
-
-  window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '1431662007122283',
-    cookie     : true,  // enable cookies to allow the server to access 
-                        // the session
-    xfbml      : true,  // parse social plugins on this page
-    version    : 'v2.0' // use version 2.0
-  });
-
-  // Now that we've initialized the JavaScript SDK, we call 
-  // FB.getLoginStatus().  This function gets the state of the
-  // person visiting this page and can return one of three states to
-  // the callback you provide.  They can be:
-  //
-  // 1. Logged into your app ('connected')
-  // 2. Logged into Facebook, but not your app ('not_authorized')
-  // 3. Not logged into Facebook and can't tell if they are logged into
-  //    your app or not.
-  //
-  // These three cases are handled in the callback function.
-
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
-
-  };
-
-  // Load the SDK asynchronously
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-
-  // Here we run a very simple test of the Graph API after login is
-  // successful.  See statusChangeCallback() for when this call is made.
-  function testAPI() {
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
-      console.log('Successful login for: ' + response.name);
-      document.getElementById('status').innerHTML =
-        'Thanks for logging in, ' + response.name + '!';
-        
-    });
-  }
-</script>
-
-<!--
-  Below we include the Login Button social plugin. This button uses
-  the JavaScript SDK to present a graphical Login button that triggers
-  the FB.login() function when clicked.
--->
-
-<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-</fb:login-button>
-
-<div id="status">
-</div>
-
-<div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="true" data-auto-logout-link="true"></div>
 
 {% endblock %}

@@ -16,7 +16,8 @@ class IndexView(MethodView):
         
         #if username is None:
         #render cached index.
-        
+        FB_APP_ID = 'none'
+        FB_APP_SECRET = 'none'
         # https://github.com/pythonforfacebook/facebook-sdk/blob/master/examples/flask/app/views.py
         if session.get('user'):
             logged_in = 'yes'
@@ -32,6 +33,9 @@ class IndexView(MethodView):
         states = Objects.AllStatesIndex()
         states = sorted(states.states, key=lambda k: k.id)
         
+        #we need to get the generated header.
+        #this should be in cache, but for now it's not.
+        headergen = render_template('header_gen.html')
         
-        return render_template('index2.html', allstates=states, li=logged_in, fb=fb_in)
+        return render_template('index2.html', allstates=states, li=logged_in, fb=fb_in, headergen=headergen)
         #return render_template('index.html', states=states)

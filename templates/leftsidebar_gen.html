@@ -1,0 +1,23 @@
+<section>
+							<h2>Browse all jobs by category</h2>
+							<div>
+								<div class="row">
+									<div class="6u">
+										<ul class="link-list">
+											{% for cat in allcats %}
+											<li><a href="/alljobs/{{ cat.urlname }}">{{ cat.name }}</a></li>
+											{% endfor %}
+										</ul>
+									</div>
+									<div class="6u">
+										<ul class="link-list">
+											{% for cat in allcats %}
+											<li><a href="/alljobs/{{ cat.urlname }}">{{ cat.name }}</a></li>
+											{% endfor %}
+										</ul>
+									</div>
+								</div>
+							</div>
+						</section>
+
+						

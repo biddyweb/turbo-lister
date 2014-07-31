@@ -1,0 +1,105 @@
+{% extends "main_header.html" %}
+{% block body %}
+		<div id="banner-wrapper">
+			<div class="container">
+				<div class="row">
+					<div class="12u">
+					
+						<div id="banner">
+							<h2>Your Job Search Starts Here!</h2>
+							<span>We are a 100% free to use job classifieds.  Start searching for your new job today!</span>
+						</div>
+				
+					</div>
+				</div>
+			</div>
+		</div>
+<div id="main">
+			<div class="container">
+							<div class="row main-row">
+					<div class="4u">
+						
+						{% autoescape false %}
+    					{{ leftsidebargen }}
+						{% endautoescape %}
+					
+					</div>
+					<div class="4u">
+						
+						<section>
+							<h2>Who are you guys?</h2>
+							<ul class="small-image-list">
+								<li>
+									<a href="#"><img src="/static/images/pic2.jpg" alt="" class="left" /></a>
+									<h4>For Job Seekers:</h4>
+									<p>We are a job classifieds focused on connecting you to local employers in VA, DC, and MD.</p>
+								</li>
+								<li>
+									<a href="#"><img src="/static/images/pic1.jpg" alt="" class="left" /></a>
+									<h4>For Employers:</h4>
+									<p>Start advertising your open positions today!  Posting is 100% free!</p>
+								</li>
+							</ul>
+						</section>
+					
+					</div>
+					<div class="4u">
+					
+						{% autoescape false %}
+    					{{ rightsidebargen }}
+						{% endautoescape %}
+
+					</div>
+				</div>
+				<div class="row main-row">
+				
+					<div class="4u">
+
+						{% autoescape false %}
+    					{{ myaccountgen }}
+						{% endautoescape %}
+						
+						{% autoescape false %}
+    					{{ leftsidebargen }}
+						{% endautoescape %}
+					<section>
+				    <h1>Flaskr</h1>
+				  <div class=metanav>
+				
+				    <a href="{{ url_for('index') }}">Index2</a>
+				
+				    <a href="{{ url_for('createcity') }}">log out</a>
+				<br />
+				{% autoescape false %}
+				    {{ test }}
+				{% endautoescape %}
+				<br />
+				  </div>
+				  {% for message in get_flashed_messages() %}
+				    <div class=flash>{{ message }}</div>
+				  {% endfor %}
+				  Index of application page.
+				
+				{{ li }}
+				<br />
+				{{ fb }}
+				
+				
+				<br />
+						</section>
+					</div>
+					<div class="8u skel-cell-important">
+
+						<section class="right-content">
+							This is the main section.
+						</section>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		
+
+
+
+{% endblock %}

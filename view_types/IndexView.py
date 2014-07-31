@@ -21,7 +21,7 @@ class IndexView(MethodView):
         # https://github.com/pythonforfacebook/facebook-sdk/blob/master/examples/flask/app/views.py
         if session.get('user'):
             logged_in = 'yes'
-            myaccountgen = render_template('myaccount_gen.html')
+            myaccountgen = Objects.HTMLSnippet('myaccount').html
         else:
             logged_in = 'no'
             myaccountgen = ''
@@ -39,11 +39,14 @@ class IndexView(MethodView):
         allcats = Objects.AllCats()
         allcats = allcats.cats
         
-        #we need to get the generated header.
-        #this should be in cache, but for now it's not.
-        headergen = Objects.HTMLSnippet('header').html
+        #Get header and footer from cache
+        myaccountgen = Objects.HTMLSnippet('myaccount').html
+        leftsidebargen = Objects.HTMLLeftSideBar('leftsidebar').html
+        rightsidebargen = Objects.HTMLRightSideBar('rightsidebar').html
+        #headergen = Objects.HTMLSnippet('header').html
+        headergen = render_template('header_gen.html')
         footergen = Objects.HTMLSnippet('footer').html
         
-        return render_template('index2.html', allstates=states, 
-                               li=logged_in, fb=fb_in, headergen=headergen, footergen=footergen, myaccountgen=myaccountgen, allcats=allcats)
+        return render_template('index3.html', myaccountgen=myaccountgen, leftsidebargen=leftsidebargen, rightsidebargen=rightsidebargen,
+                               li=logged_in, fb=fb_in, headergen=headergen, footergen=footergen)
         #return render_template('index.html', states=states)

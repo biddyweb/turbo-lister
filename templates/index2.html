@@ -10,49 +10,11 @@
 						{% autoescape false %}
     					{{ myaccountgen }}
 						{% endautoescape %}
-					
-						<section>
-							<h2>Browse all jobs by category</h2>
-							<div>
-								<div class="row">
-									<div class="6u">
-										<ul class="link-list">
-											{% for cat in allcats %}
-											<li><a href="/alljobs/{{ cat.urlname }}">{{ cat.name }}</a></li>
-											{% endfor %}
-										</ul>
-									</div>
-									<div class="6u">
-										<ul class="link-list">
-											{% for cat in allcats %}
-											<li><a href="/alljobs/{{ cat.urlname }}">{{ cat.name }}</a></li>
-											{% endfor %}
-										</ul>
-									</div>
-								</div>
-							</div>
-						</section>
-						<section>
-						<h2>Find Jobs by city / state</h2>
-							<div>
-							{% for state in allstates %}
-							<h4><a href="{{ url_for('jobsbystate', abbr=state.abbr) }}">{{ state.name }}</a></h3>
-
-										<ul class="sidebar">
-										{% for id, name in state.cities.iteritems() %}
-										<li><a href="#">{{ name }} </a></li>
-										{% endfor %}
-										</ul>
-
-							
-				  					{% else %}
-				    				<em>Unbelievable.  No entries here so far</em>
-				 				{% endfor %}
-				 			</div>
-				 			<div class="row">
-				 			</div>
-						</section>
-						<section>
+						
+						{% autoescape false %}
+    					{{ leftsidebargen }}
+						{% endautoescape %}
+					<section>
 				    <h1>Flaskr</h1>
 				  <div class=metanav>
 				

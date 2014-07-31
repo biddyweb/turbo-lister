@@ -65,6 +65,32 @@ class HTMLSnippet():
         if self.html is None:
             self.html = render_template(snippet + '_gen.html')
             cache.set('html:' + snippet, self.html)
+            
+class HTMLLeftSideBar():
+    html = None
+    def __init__(self, snippet):
+        testCache()
+        self.html = getHTMLByName(snippet)
+        if self.html is None:
+            states = AllStatesIndex()
+            states = sorted(states.states, key=lambda k: k.id)
+            allcats = AllCats().cats
+
+            self.html = render_template(snippet + '_gen.html', allcats=allcats)
+            cache.set('html:' + snippet, self.html)
+            
+class HTMLRightSideBar():
+    html = None
+    def __init__(self, snippet):
+        testCache()
+        self.html = getHTMLByName(snippet)
+        if self.html is None:
+            states = AllStatesIndex()
+            states = sorted(states.states, key=lambda k: k.id)
+            allcats = AllCats().cats
+
+            self.html = render_template(snippet + '_gen.html', allstates=states)
+            cache.set('html:' + snippet, self.html)
          
 class AllStatesIndex():
     #dict of ids

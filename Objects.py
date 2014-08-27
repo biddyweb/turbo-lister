@@ -68,15 +68,17 @@ class HTMLSnippet():
             
 class HTMLLeftSideBar():
     html = None
+    allcats = None
     def __init__(self, snippet):
         testCache()
         self.html = getHTMLByName(snippet)
+        self.allcats = AllCats().cats
         if self.html is None:
             states = AllStatesIndex()
             states = sorted(states.states, key=lambda k: k.id)
-            allcats = AllCats().cats
+            
 
-            self.html = render_template(snippet + '_gen.html', allcats=allcats)
+            self.html = render_template(snippet + '_gen.html', allcats=self.allcats)
             cache.set('html:' + snippet, self.html)
             
 class HTMLRightSideBar():

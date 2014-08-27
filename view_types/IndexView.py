@@ -12,7 +12,10 @@ class IndexView(MethodView):
     
     def get(self):
         #check for user logged in session
-        #username = session['username']
+        try:
+            username = session['username']
+        except:
+            username = None
         
         #if username is None:
         #render cached index.
@@ -24,7 +27,7 @@ class IndexView(MethodView):
             myaccountgen = Objects.HTMLSnippet('myaccount').html
         else:
             logged_in = 'no'
-            myaccountgen = ''
+            myaccountgen = Objects.HTMLSnippet('myaccount_signin').html
         result = get_user_from_cookie(cookies=request.cookies, app_id=FB_APP_ID,
                                   app_secret=FB_APP_SECRET)
         if result:
@@ -41,18 +44,23 @@ class IndexView(MethodView):
         
         #Get myaccount area
         #if logged in
-        myaccountgen = Objects.HTMLSnippet('myaccount').html
+        #myaccountgen = Objects.HTMLSnippet('myaccount').html
         
         #if not logged in
-        #myaccountgen  = Objects.HTMLSnippet('myaccount_signin').html
+        myaccountgen  = render_template('myaccount_signin_gen.html')
         
         #Get header and footer from cache
         mainsearchboxgen = Objects.HTMLSnippet('mainsearchbox').html
         leftsidebargen = Objects.HTMLLeftSideBar('leftsidebar').html
         rightsidebargen = Objects.HTMLRightSideBar('rightsidebar').html
-        #headergen = Objects.HTMLSnippet('header').html
-        headergen = render_template('header_gen.html')
+        headergen = Objects.HTMLSnippet('header').html
+        
         footergen = Objects.HTMLSnippet('footer').html
+        
+        #Manually generate templates for debugging.
+        headergen = render_template('header_gen.html')
+        allcats = Objects.HTMLLeftSideBar('leftsidebar').allcats
+        leftsidebargen = render_template('leftsidebar_gen.html', allcats=allcats)
         
         return render_template('index3.html', myaccountgen=myaccountgen, leftsidebargen=leftsidebargen, rightsidebargen=rightsidebargen,
                                li=logged_in, fb=fb_in, headergen=headergen, footergen=footergen, mainsearchboxgen=mainsearchboxgen)

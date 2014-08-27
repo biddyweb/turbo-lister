@@ -61,7 +61,7 @@ class HTMLSnippet():
     html = None
     def __init__(self, snippet):
         testCache()
-        self.html = getHTMLByName(snippet)
+        #self.html = getHTMLByName(snippet)
         if self.html is None:
             self.html = render_template(snippet + '_gen.html')
             cache.set('html:' + snippet, self.html)

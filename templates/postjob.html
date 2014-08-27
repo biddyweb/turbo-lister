@@ -1,0 +1,29 @@
+{% extends "main_header.html" %}
+
+{% block body %}
+
+<script src="//cdn.ckeditor.com/4.4.4/standard-all/ckeditor.js"></script>
+<div id="main">
+	<div class="container">
+		<h2>Create a new job listing:</h2>
+		        <form>
+		     <label><h3>State:</h3></label>
+		     <label><h3>City:</h3></label>
+		     <label><h3>Category:</h3></label>
+		     <br />
+		     <label><h3>Title:</h3></label>
+            <textarea name="editor1" id="editor1" rows="10" cols="80">
+                Enter your job description here.   Javascript and HTML are prohibited.  BBCode is valid.
+            </textarea>
+            <script>
+                // Replace the <textarea id="editor1"> with a CKEditor
+                // instance, using default configuration.
+                CKEDITOR.replace( 'editor1' );
+                CKEDITOR.config.extraPlugins = 'bbcode,colorbutton';
+            </script>
+        </form>
+	</div>
+</div>
+
+
+{% endblock %}

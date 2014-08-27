@@ -39,8 +39,15 @@ class IndexView(MethodView):
         allcats = Objects.AllCats()
         allcats = allcats.cats
         
-        #Get header and footer from cache
+        #Get myaccount area
+        #if logged in
         myaccountgen = Objects.HTMLSnippet('myaccount').html
+        
+        #if not logged in
+        #myaccountgen  = Objects.HTMLSnippet('myaccount_signin').html
+        
+        #Get header and footer from cache
+        mainsearchboxgen = Objects.HTMLSnippet('mainsearchbox').html
         leftsidebargen = Objects.HTMLLeftSideBar('leftsidebar').html
         rightsidebargen = Objects.HTMLRightSideBar('rightsidebar').html
         #headergen = Objects.HTMLSnippet('header').html
@@ -48,5 +55,5 @@ class IndexView(MethodView):
         footergen = Objects.HTMLSnippet('footer').html
         
         return render_template('index3.html', myaccountgen=myaccountgen, leftsidebargen=leftsidebargen, rightsidebargen=rightsidebargen,
-                               li=logged_in, fb=fb_in, headergen=headergen, footergen=footergen)
+                               li=logged_in, fb=fb_in, headergen=headergen, footergen=footergen, mainsearchboxgen=mainsearchboxgen)
         #return render_template('index.html', states=states)

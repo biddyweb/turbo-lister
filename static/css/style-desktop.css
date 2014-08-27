@@ -126,7 +126,7 @@
 /* Banner */
 
 	#banner-wrapper {
-		background: #c8d2bc url(images/bg1.png);
+		background: #6CB267;
 	}
 
 	#banner {
@@ -137,7 +137,7 @@
 		box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.10);
 		border-radius: 10px;
 		padding: 20px;
-		background: #fff url(images/banner.jpg) no-repeat 20px 20px;
+		background: #fff;
 		background-size: 1160px 265px;
 	}
 
@@ -148,7 +148,7 @@
 			top: 100px;
 			left: 0;
 			font-size: 3.3em;
-			color: #fff;
+			color: #007294;
 			text-align: center;
 			letter-spacing: -2px;
 		}
@@ -161,12 +161,35 @@
 			bottom: 105px;
 			left: 0;
 			font-size: 1.6em;
-			color: #fff;
+			color: #007294;
 			text-align: center;
 			letter-spacing: -1px;
 			text-transform: lowercase;
 			opacity: 0.8;
 		}
+/*search form */
+#homesearchform {
+			position: absolute;
+			z-index: 1;
+			width: 100%;
+			top: 50px;
+			left: 0;
+			font-size: 1.3em;
+			color: #007294;
+			text-align: center;
+			letter-spacing: -2px;
+}
+
+.selectbox {
+			width: 200px;
+			margin: 5px;
+}
+
+.keywordbox {
+			width: 200px;
+			margin: 5px;
+}
+
 
 /* Main */
 

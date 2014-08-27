@@ -2,21 +2,21 @@
 {% block body %}
 		<div id="banner-wrapper">
 			<div class="container">
-				<div class="row">
-					<div class="12u">
-					
-						<div id="banner">
-							<h2>Your Job Search Starts Here!</h2>
-							<span>We are a 100% free to use job classifieds.  Start searching for your new job today!</span>
-						</div>
-				
-					</div>
-				</div>
+						{% autoescape false %}
+    					{{ mainsearchboxgen }}
+						{% endautoescape %}
 			</div>
 		</div>
 <div id="main">
 			<div class="container">
 							<div class="row main-row">
+					<div class="4u">
+						{% autoescape false %}
+    					{{ myaccountgen }}
+						{% endautoescape %}
+
+					
+					</div>
 					<div class="4u">
 						
 						{% autoescape false %}
@@ -25,6 +25,20 @@
 					
 					</div>
 					<div class="4u">
+					
+						{% autoescape false %}
+    					{{ rightsidebargen }}
+						{% endautoescape %}
+
+					</div>
+				</div>
+				<div class="row main-row">
+				
+					<div class="4u">
+						
+						{% autoescape false %}
+    					{{ leftsidebargen }}
+						{% endautoescape %}
 						
 						<section>
 							<h2>Who are you guys?</h2>
@@ -41,27 +55,7 @@
 								</li>
 							</ul>
 						</section>
-					
-					</div>
-					<div class="4u">
-					
-						{% autoescape false %}
-    					{{ rightsidebargen }}
-						{% endautoescape %}
-
-					</div>
-				</div>
-				<div class="row main-row">
-				
-					<div class="4u">
-
-						{% autoescape false %}
-    					{{ myaccountgen }}
-						{% endautoescape %}
 						
-						{% autoescape false %}
-    					{{ leftsidebargen }}
-						{% endautoescape %}
 					<section>
 				    <h1>Flaskr</h1>
 				  <div class=metanav>

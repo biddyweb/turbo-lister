@@ -42,6 +42,11 @@ postjobview = PostJobView.as_view('postjobview')
 app.add_url_rule('/postjob', view_func=postjobview, methods=['GET'])
 app.add_url_rule('/postjob', view_func=postjobview, methods=['POST'])
 
+from view_types.SubmitJobView import SubmitJobView
+submitjobview = SubmitJobView.as_view('submitjobview')
+app.add_url_rule('/submitjob', view_func=submitjobview, methods=['GET'])
+app.add_url_rule('/submitjob', view_func=submitjobview, methods=['POST'])
+
 from database import db_session
 from database import init_db
  

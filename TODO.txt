@@ -42,3 +42,7 @@ Ad strategy.
 Marketing strategy.
 
 Payment strategy.
+
+Breadcrumbs.
+
+Add flash to header.

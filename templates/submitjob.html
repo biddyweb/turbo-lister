@@ -1,0 +1,30 @@
+{% extends "main_header.html" %}
+
+{% block body %}
+
+<script src="//cdn.ckeditor.com/4.4.4/full-all/ckeditor.js"></script>
+<div id="main">
+	<div class="container">
+		<h2>New Listing Successfully Submitted</h2>
+		     <form id="answerform" name="input" action={{ url_for('postjobview') }} method="post">
+		     <label><h3>State:</h3></label>
+		     <label><h3>City:</h3></label>
+		     <label><h3>Category:</h3></label>
+		     <br />
+		     <label><h3>Title:</h3></label>
+
+		<div id="previewcontain">
+        <div id="previewpane">
+        				
+        				{% autoescape false %}
+    					{{ previewtext }}
+						{% endautoescape %}
+						
+
+        </div>
+        </div>
+	</div>
+</div>
+
+
+{% endblock %}

@@ -38,6 +38,9 @@ $(function() {
         
         <br />
             <span id="warn"><input type="submit" value="Preview">All Posts Will Be Moderated!</span>
+            {% if postuuid is defined %}
+            <input type="hidden" value="{{ postuuid }}" name="postuuid">
+            {% endif %}
         </form>
 
         {% if previewtext is defined %}
@@ -52,9 +55,9 @@ $(function() {
 
         </div>
         </div>
-        <form id="answerform" name="input" action= method="post">
+        <form id="answerform" name="input" action={{ url_for('submitjobview') }} method="post">
         <input type="hidden" value="1" name="save">
-        <input type="hidden" value="{{ editortext }}" name="jobtext">
+        <input type="hidden" value="{{ postuuid }}" name="postuuid">
         <span id="warn"><input type="submit" value="Post!">All Posts Will Be Moderated!</span>
 		{% endif %}
 	</div>

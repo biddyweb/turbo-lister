@@ -23,7 +23,7 @@ class Cat():
     def __init__(self, id, name):
         self.id = id
         self.name = name
-        self.urlname = name.replace(" ", "_").lower()
+        self.urlname = name.replace(" ", "_").lower().replace(",", "")
         
 class StateHomePage():
     name = None
@@ -76,9 +76,20 @@ class HTMLLeftSideBar():
         if self.html is None:
             states = AllStatesIndex()
             states = sorted(states.states, key=lambda k: k.id)
-            
+            leftlist = list()
+            rightlist = list()
+            count = 0
+            for cat in self.allcats:
+                if count % 2 == 0:
+                    leftlist.append(cat)
+                    print cat
+                else:
+                    rightlist.append(cat)
+                    print cat
+                count += 1
 
-            self.html = render_template(snippet + '_gen.html', allcats=self.allcats)
+
+            self.html = render_template(snippet + '_gen.html', leftcats=leftlist, rightcats=rightlist)
             cache.set('html:' + snippet, self.html)
             
 class HTMLRightSideBar():
@@ -89,8 +100,6 @@ class HTMLRightSideBar():
         if self.html is None:
             states = AllStatesIndex()
             states = sorted(states.states, key=lambda k: k.id)
-            allcats = AllCats().cats
-
             self.html = render_template(snippet + '_gen.html', allstates=states)
             cache.set('html:' + snippet, self.html)
          
@@ -111,7 +120,7 @@ def testCache():
         abort(500, "Cache dead")
  
 def getAllStates():
-    #Retrieve an object of all states, etc.
+    #Retrieve an object of all states, etc.owse al
     #allstates = dict ( state_id : (name : x, abbr : x, cities : (city_id : x, name : x) ) )
     testCache()
     return cache.get('allstates')

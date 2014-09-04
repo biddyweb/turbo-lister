@@ -3,3 +3,36 @@ My todo list.
 Create basic posting model to implement last_insert_id()
 http://dev.mysql.com/doc/refman/5.0/en/getting-unique-id.html
 
+Things that should be cached:
+State home page
+City Home page
+Category Home Page?
+
+Notes:
+I think caching all posting related pages will provide the best performance.  Update them every 1 minute outside of the web app.
+
+Need to implement some type of full text search.
+
+Need to populate city drop down box based on state.
+
+Implement google+ login.
+
+Implement user account creation.
+
+Populate real cities.
+
+Implement post editing and submission.
+
+Create static pages.
+
+Add social media.
+
+Add "sign-up" to "employers" section on main page.
+
+Widgetize the side bars.
+
+Build account area.
+
+Add some content to home page.
+
+Create real content in footer.

@@ -59,8 +59,8 @@ class IndexView(MethodView):
         
         #Manually generate templates for debugging.
         headergen = render_template('header_gen.html')
-        allcats = Objects.HTMLLeftSideBar('leftsidebar').allcats
-        leftsidebargen = render_template('leftsidebar_gen.html', allcats=allcats)
+        #allcats = Objects.HTMLLeftSideBar('leftsidebar').allcats
+        #leftsidebargen = render_template('leftsidebar_gen.html', leftcats=leftlist, rightcats=rightlist)
         
         return render_template('index3.html', myaccountgen=myaccountgen, leftsidebargen=leftsidebargen, rightsidebargen=rightsidebargen,
                                li=logged_in, fb=fb_in, headergen=headergen, footergen=footergen, mainsearchboxgen=mainsearchboxgen)

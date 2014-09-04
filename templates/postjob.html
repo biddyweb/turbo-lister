@@ -12,7 +12,7 @@
 		     <label><h3>Category:</h3></label>
 		     <br />
 		     <label><h3>Title:</h3></label>
-            <textarea id="jobtext" rows="20" cols="120" name="jobtext" form="answerform">{{ editortext }}</textarea>
+            <textarea id="jobtext" rows="20" name="jobtext" form="answerform">{{ editortext }}</textarea>
 
 
 <script>
@@ -21,6 +21,7 @@ $(function() {
     // with SCEditor
     $("textarea").sceditor({
         plugins: "bbcode",
+        toolbarExclude: "table,emoticon,youtube,justify,bulletlist,orderedlist,indent,outdent",
 	style: "minified/jquery.sceditor.default.min.css"
     });
 });
@@ -28,14 +29,18 @@ $(function() {
             <input type="hidden" value="[b]testing[/b]" name="jobtext">
             <input type="submit" value="Preview">
         </form>
-
+        <h2>Preview:</h2>
+		<div id="previewcontain">
         <div id="previewpane">
-        				<h2>Preview:</h2>
+        				
         				{% autoescape false %}
     					{{ previewtext }}
 						{% endautoescape %}
-        </div>
+						
 
+        </div>
+        </div>
+			
 	</div>
 </div>
 

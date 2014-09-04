@@ -36,3 +36,9 @@ Build account area.
 Add some content to home page.
 
 Create real content in footer.
+
+Ad strategy.
+
+Marketing strategy.
+
+Payment strategy.

@@ -19,11 +19,10 @@ class PostJobView(MethodView):
         #else, we need to render our user's screen.
         editortext = "[b]Enter your job description here[/b]. [color=#B22222]Javascript and HTML are prohibited[/color]. [color=#008000]BBCode is valid.[/color]"
         parser = bbcode.Parser()
-        parser.add_simple_formatter('wiki', '<a href="http://wikipedia.org/wiki/%(value)s">%(value)s</a>')
         previewtext = bbcode.render_html(editortext)
         headergen = Objects.HTMLSnippet('postheader').html
         footergen = Objects.HTMLSnippet('footer').html
-        return render_template('postjob.html', headergen=headergen, footergen=footergen, editortext=editortext, previewtext=previewtext)
+        return render_template('postjob.html', headergen=headergen, footergen=footergen, editortext=editortext, previewtext=previewtext, raw='hello')
     
     def post(self):
         #check for user logged in session
@@ -44,6 +43,8 @@ class PostJobView(MethodView):
                 'value': value,
             }
         parser.add_simple_formatter('img', '<img src=%(value)s ></img>')
+        parser.add_simple_formatter('rtl', '<div style="direction: rtl;">%(value)s</div>')
+        parser.add_simple_formatter('li', '<li></li>')
         parser.add_formatter('size', render_size)
             
        
@@ -54,5 +55,5 @@ class PostJobView(MethodView):
         #else, we need to render our user's screen.
         headergen = Objects.HTMLSnippet('postheader').html
         footergen = Objects.HTMLSnippet('footer').html
-        return render_template('postjob.html', headergen=headergen, footergen=footergen, editortext=jobtext, previewtext=previewtext)
+        return render_template('postjob.html', headergen=headergen, footergen=footergen, editortext=jobtext, previewtext=previewtext, raw=jobtext)
         

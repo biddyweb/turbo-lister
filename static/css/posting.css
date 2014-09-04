@@ -1,0 +1,84 @@
+textarea {
+width: 100%;
+}
+#previewcontain {
+background-color: #eee;
+width: auto;
+display: block;
+padding: 5px;
+}
+#previewpane code {
+display: inline;
+font-family: monospace;
+font-size: 16px;
+height: auto;
+width: auto
+}
+
+#previewpane{
+padding: 25px;
+background-color: #fff;
+font-family: 'Times New Roman';
+font-kerning: auto;
+font-size: 16px;
+font-style: normal;
+font-variant: normal;
+font-variant-ligatures: normal;
+font-weight: bold;
+color: #000;
+letter-spacing: normal;
+direction: ltr;
+display: block;
+font-family: 'Times New Roman';
+font-kerning: auto;
+font-size: 16px;
+font-style: normal;
+font-variant: normal;
+font-variant-ligatures: normal;
+font-weight: normal;
+
+right: auto;
+tab-size: 8;
+table-layout: auto;
+text-align: start;
+text-anchor: start;
+text-indent: 0px;
+text-overflow: clip;
+text-rendering: auto;
+text-shadow: none;
+text-transform: none;
+top: auto;
+touch-action: auto;
+transition-delay: 0s;
+transition-duration: 0s;
+transition-property: all;
+transition-timing-function: ease;
+vertical-align: baseline;
+visibility: visible;
+white-space: normal;
+widows: auto;
+word-break: normal;
+word-spacing: 0px;
+word-wrap: break-word;
+z-index: auto;
+zoom: 1;
+}
+
+#previewpane strong {
+font-weight: bold;
+}
+#previewpane em {
+font-style: italic;
+}
+#previewpane sub {
+vertical-align: sub;
+font-size: smaller;
+}
+#previewpane sup {
+vertical-align: super;
+font-size: smaller;
+}
+#previewpane blockquote {
+display: block;
+margin: 16px 40px 16px 40px;
+}est

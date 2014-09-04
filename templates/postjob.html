@@ -26,9 +26,21 @@ $(function() {
     });
 });
 </script>
-            <input type="hidden" value="[b]testing[/b]" name="jobtext">
-            <input type="submit" value="Preview">
+            <input type="hidden" value="testing" name="jobtext">
+                    <h3>Posting Rules:</h3>
+        <ol>
+        	<li>All Posts From Standard Accounts Will Be Moderated!</li>
+        	<li>All Posts Must Comply with Our Terms and Conditions</li>
+        	<li>Please select the most appropriate city, state, and category for your listing.</li>
+        	<li>Please post the Job Title of the actual position(s) in the title field.</li>
+        	<li>To prevent spam, there is a character limit of 32k.</li>
+        	<li>No javascript or html permitted</li>
+        
+        <br />
+            <span id="warn"><input type="submit" value="Preview">All Posts Will Be Moderated!</span>
         </form>
+
+        {% if previewtext is defined %}
         <h2>Preview:</h2>
 		<div id="previewcontain">
         <div id="previewpane">
@@ -40,7 +52,11 @@ $(function() {
 
         </div>
         </div>
-			
+        <form id="answerform" name="input" action= method="post">
+        <input type="hidden" value="1" name="save">
+        <input type="hidden" value="{{ editortext }}" name="jobtext">
+        <span id="warn"><input type="submit" value="Post!">All Posts Will Be Moderated!</span>
+		{% endif %}
 	</div>
 </div>
 

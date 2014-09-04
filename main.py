@@ -4,7 +4,8 @@ import views
 
 app = Flask(__name__)
 app.config.from_object('config.Config')
-
+#Max upload is 32k to prevent malicious uploads from jamming up the server.
+app.config['MAX_CONTENT_LENGTH'] = 32 * 1024
 
 #app.add_url_rule('/', view_func=views.index)
 app.add_url_rule('/user/<username>', view_func=views.user)

@@ -8,27 +8,7 @@ import Objects
 import bbcode
 
 class PostJobView(MethodView):
-    
-    def get(self):
-        #check for user logged in session
-        #username = session['username']
-        
-        #if username is None:
-        #render cached index.
-        
-        #else, we need to render our user's screen.
-        editortext = "[b]Enter your job description here[/b]. [color=#B22222]Javascript and HTML are prohibited[/color]. [color=#008000]BBCode is valid.[/color]"
-        parser = bbcode.Parser()
-        previewtext = bbcode.render_html(editortext)
-        headergen = Objects.HTMLSnippet('postheader').html
-        footergen = Objects.HTMLSnippet('footer').html
-        return render_template('postjob.html', headergen=headergen, footergen=footergen, editortext=editortext, previewtext=previewtext, raw='hello')
-    
-    def post(self):
-        #check for user logged in session
-        #username = session['username']
-        jobtext = request.form.get('jobtext')
-        parser = bbcode.Parser(replace_links=False)
+    def updateParser(self):
         def render_size(name, value, options, parent, context):
             if 'size' in options:
                 size = options['size'].strip()
@@ -42,12 +22,42 @@ class PostJobView(MethodView):
                 'size': size,
                 'value': value,
             }
+        parser = bbcode.Parser(replace_links=False)
         parser.add_simple_formatter('img', '<img src=%(value)s ></img>')
         parser.add_simple_formatter('rtl', '<div style="direction: rtl;">%(value)s</div>')
+        parser.add_simple_formatter('ltr', '<div style="direction: ltr;">%(value)s</div>')
         parser.add_simple_formatter('li', '<li></li>')
         parser.add_formatter('size', render_size)
-            
-       
+        return parser
+        
+    #No data has been submitted.
+    def get(self):
+        #check for user logged in session
+        #username = session['username']
+        
+        #if username is None:
+        #flash not logged in
+        #render sign in page.
+        
+        #else, we need to render our user's screen.
+        editortext = "[b]Enter your job description here[/b]. [color=#B22222]Javascript and HTML are prohibited[/color]. [color=#008000]BBCode is valid.[/color]"
+        parser = bbcode.Parser()
+        previewtext = bbcode.render_html(editortext)
+        headergen = Objects.HTMLSnippet('postheader').html
+        footergen = Objects.HTMLSnippet('footer').html
+        return render_template('postjob.html', headergen=headergen, footergen=footergen, editortext=editortext)
+    
+    #Data has been submitted
+    def post(self):
+        #check for user logged in session
+        #username = session['username']
+        
+        #generate a UUID for this text, and save to memcached.
+        jobtext = request.form.get('jobtext')
+        
+        #Add extensions to bbCode parser.
+        parser = self.updateParser()
+        
         #if username is None:
         #render cached index.
         #previewtext = bbcode.render_html(jobtext)
@@ -55,5 +65,5 @@ class PostJobView(MethodView):
         #else, we need to render our user's screen.
         headergen = Objects.HTMLSnippet('postheader').html
         footergen = Objects.HTMLSnippet('footer').html
-        return render_template('postjob.html', headergen=headergen, footergen=footergen, editortext=jobtext, previewtext=previewtext, raw=jobtext)
+        return render_template('postjob.html', headergen=headergen, footergen=footergen, editortext=jobtext, previewtext=previewtext)
         

@@ -37,6 +37,10 @@ from view_types.SignInView import SignInView
 signinview = SignInView.as_view('signinview')
 app.add_url_rule('/signin', view_func=signinview, methods=['GET', 'POST'])
 
+from view_types.SignOutView import SignOutView
+signoutview = SignOutView.as_view('signoutview')
+app.add_url_rule('/signout', view_func=signoutview, methods=['GET'])
+
 from view_types.PostJobView import PostJobView
 postjobview = PostJobView.as_view('postjobview')
 app.add_url_rule('/postjob', view_func=postjobview, methods=['GET'])

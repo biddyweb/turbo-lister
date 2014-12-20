@@ -5,23 +5,24 @@
 -->
 <head>
 <title>Turbo-Lister</title>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
-<!-- Load WysiBB JS and Theme -->
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<link rel="stylesheet" href="http://www.sceditor.com/minified/themes/default.min.css" type="text/css" media="all" />
-<script type="text/javascript" src="http://www.sceditor.com/minified/jquery.sceditor.bbcode.min.js"></script>
-
-<link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'>
-
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style-desktop.css') }}">
-
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'>
+		<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='js/config.js') }}"></script>
 		<script src="{{ url_for('static', filename='js/skel.min.js') }}"></script>
-		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/posting.css') }}">
-
+		<script src="{{ url_for('static', filename='js/skel-panels.min.js') }}"></script>
+		<noscript>
+			<link rel="stylesheet" href="{{ url_for('static', filename='css/skel-noscript.css') }}" />
+			<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+			<link rel="stylesheet" href="{{ url_for('static', filename='css/style-desktop.css') }}" />
+		</noscript>
+		<!--[if lte IE 9]><link rel="stylesheet" href="{{ url_for('static', filename='css/ie9.css') }}" /><![endif]-->
+		<!--[if lte IE 8]><script src="{{ url_for('static', filename='js/html5shiv.js') }}"></script><![endif]-->
 </head>
-
 
 <!--
   Below we include the Login Button social plugin. This button uses

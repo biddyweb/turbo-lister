@@ -11,12 +11,6 @@ import Objects
 class IndexView(MethodView):
     
     def get(self):
-        #check for user logged in session
-        try:
-            username = session['username']
-        except:
-            username = None
-        
         #if username is None:
         #render cached index.
         #FB_APP_ID = 'none'
@@ -26,9 +20,12 @@ class IndexView(MethodView):
         if session.get('username'):
             logged_in = 'yes'
             myaccountgen = Objects.HTMLSnippet('myaccount').html
+            headergen = Objects.HTMLSnippet('header_logged_in').html
         else:
+            #render cached index.
             logged_in = 'no'
             myaccountgen = Objects.HTMLSnippet('myaccount_signin').html
+            headergen = Objects.HTMLSnippet('header').html
         #result = get_user_from_cookie(cookies=request.cookies, app_id=FB_APP_ID,
         #                          app_secret=FB_APP_SECRET)
         result = None
@@ -56,12 +53,12 @@ class IndexView(MethodView):
         mainsearchboxgen = Objects.HTMLSnippet('mainsearchbox').html
         leftsidebargen = Objects.HTMLLeftSideBar('leftsidebar').html
         rightsidebargen = Objects.HTMLRightSideBar('rightsidebar').html
-        headergen = Objects.HTMLSnippet('header').html
+
         
         footergen = Objects.HTMLSnippet('footer').html
         
         #Manually generate templates for debugging.
-        headergen = render_template('header_gen.html')
+        #headergen = render_template('header_gen.html')
         #allcats = Objects.HTMLLeftSideBar('leftsidebar').allcats
         #leftsidebargen = render_template('leftsidebar_gen.html', leftcats=leftlist, rightcats=rightlist)
         

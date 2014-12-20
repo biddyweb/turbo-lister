@@ -4,6 +4,7 @@ from database import Base
 class User(Base):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
+    password = Column(String(92), unique=False)
     fname = Column(String(50), unique=False)
     lname = Column(String(50), unique=False)
     email = Column(String(120), unique=True)

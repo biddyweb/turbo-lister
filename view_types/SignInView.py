@@ -8,7 +8,9 @@ import Objects
 
 
 class SignInView(MethodView):
-    
+    def password_check(self):
+        pass
+
     def get(self):
         #check for user logged in session
         #username = session['username']

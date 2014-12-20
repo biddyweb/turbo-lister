@@ -1,9 +1,24 @@
 from flask import abort, render_template
 from werkzeug.contrib.cache import MemcachedCache
+from werkzeug.security import generate_password_hash, check_password_hash
+
 import bbcode
 import re
 # http://stackoverflow.com/questions/10016499/nginx-with-flask-and-memcached-returns-some-garbled-characters
 cache = MemcachedCache(['127.0.0.1:11211'])
+
+class MyUser(object):
+    id = None
+
+    def __init__(self, username, password):
+        self.username = username
+        self.set_password(password)
+
+    def set_password(self, password):
+        self.pw_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.pw_hash, password)
 
 class State():
     id = None

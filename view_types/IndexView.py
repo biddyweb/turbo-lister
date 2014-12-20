@@ -1,6 +1,6 @@
 from flask import request, session, g, redirect, url_for, abort, render_template, flash
 from flask.views import MethodView
-from facebook import get_user_from_cookie, GraphAPI
+#from facebook import get_user_from_cookie, GraphAPI
 
 from database import db_session
 from models import State, City
@@ -28,10 +28,12 @@ class IndexView(MethodView):
         else:
             logged_in = 'no'
             myaccountgen = Objects.HTMLSnippet('myaccount_signin').html
-        result = get_user_from_cookie(cookies=request.cookies, app_id=FB_APP_ID,
-                                  app_secret=FB_APP_SECRET)
+        #result = get_user_from_cookie(cookies=request.cookies, app_id=FB_APP_ID,
+        #                          app_secret=FB_APP_SECRET)
+        result = None
         if result:
-            fb_in = result['uid']
+            #fb_in = result['uid']
+            fb_in = 'none'
         else:
             fb_in = 'none'
         #else, we need to render our user's screen.

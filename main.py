@@ -50,7 +50,7 @@ app.add_url_rule('/submitjob', view_func=submitjobview, methods=['POST'])
 from database import db_session
 from database import init_db
  
-#init_db()
+init_db()
 
 @app.teardown_appcontext
 def shutdown_session(exception=None):

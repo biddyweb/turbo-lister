@@ -1,5 +1,5 @@
 from database import db_session
-from models import State, City, Category
+from models import State, City, Category, User
 
 from werkzeug.contrib.cache import MemcachedCache
 #Should rename objects to something less generic.
@@ -69,4 +69,7 @@ def loadCache():
 
 loadCache()
 cache.set('iswarm', 1, timeout=0)
-
+#passhash = Objects.UserPassword('testing').pw_hash
+#myUser = User(password=passhash,fname='Mike',lname='Gugino', email='test@test.com',phone='555-555')
+#db_session.add(myUser)
+#db_session.commit()

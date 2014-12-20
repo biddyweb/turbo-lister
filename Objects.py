@@ -2,16 +2,18 @@ from flask import abort, render_template
 from werkzeug.contrib.cache import MemcachedCache
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from database import db_session
+from models import User
+
 import bbcode
 import re
 # http://stackoverflow.com/questions/10016499/nginx-with-flask-and-memcached-returns-some-garbled-characters
 cache = MemcachedCache(['127.0.0.1:11211'])
 
-class MyUser(object):
+class UserPassword(object):
     id = None
 
-    def __init__(self, username, password):
-        self.username = username
+    def __init__(self, password):
         self.set_password(password)
 
     def set_password(self, password):
@@ -19,6 +21,18 @@ class MyUser(object):
 
     def check_password(self, password):
         return check_password_hash(self.pw_hash, password)
+
+class UserSignIn(object):
+    def __init__(self, username):
+        res = db_session.query(User.id, User.email, User.password).filter_by(email=username).one();
+        self.id = res.id
+        self.email = res.email
+        self.pw_hash = res.password
+
+    def checkpw(self, password):
+        return check_password_hash(self.pw_hash, password)
+
+
 
 class State():
     id = None
@@ -98,10 +112,10 @@ class HTMLLeftSideBar():
             for cat in self.allcats:
                 if count % 2 == 0:
                     leftlist.append(cat)
-                    print cat
+                    #print cat
                 else:
                     rightlist.append(cat)
-                    print cat
+                    #print cat
                 count += 1
 
 

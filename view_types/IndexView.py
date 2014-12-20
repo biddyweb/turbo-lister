@@ -19,10 +19,11 @@ class IndexView(MethodView):
         
         #if username is None:
         #render cached index.
-        FB_APP_ID = 'none'
-        FB_APP_SECRET = 'none'
+        #FB_APP_ID = 'none'
+        #FB_APP_SECRET = 'none'
         # https://github.com/pythonforfacebook/facebook-sdk/blob/master/examples/flask/app/views.py
-        if session.get('user'):
+        #if session.get('user'):
+        if session.get('username'):
             logged_in = 'yes'
             myaccountgen = Objects.HTMLSnippet('myaccount').html
         else:
@@ -49,7 +50,7 @@ class IndexView(MethodView):
         #myaccountgen = Objects.HTMLSnippet('myaccount').html
         
         #if not logged in
-        myaccountgen  = render_template('myaccount_signin_gen.html')
+        #myaccountgen  = render_template('myaccount_signin_gen.html')
         
         #Get header and footer from cache
         mainsearchboxgen = Objects.HTMLSnippet('mainsearchbox').html

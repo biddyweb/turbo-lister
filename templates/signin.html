@@ -1,5 +1,10 @@
 {% extends "main_header.html" %}
 {% block body %}
-Sign-in page.
+<form id="answerform" name="input" action={{ url_for('signinview') }} method="post">
+<input type="text" value="test@test.com" name="username">
+<input type="password" value="testing" name="password">
+<input type="hidden" value="mytoken" name="logintoken">
+<input type="submit" value="Preview">
+</form>
 
 {% endblock %}
